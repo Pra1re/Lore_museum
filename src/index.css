@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --neon-blue: #00f3ff;
+  --neon-purple: #b026ff;
+  --dark-bg: #050505;
+  --text-primary: #e0e0e0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* the transition does its own smoothing; native smooth scroll fights it */
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-primary);
+  /* the page scrolls now: that scroll is what drives the transition */
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+}

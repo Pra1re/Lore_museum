@@ -1,0 +1,17 @@
+/*
+ * Scroll shell. The spacer's height comes from timeline.js so the scroll
+ * distance and the progress maths can never drift apart.
+ */
+
+.stage-space {
+  position: relative;
+  z-index: 1;   /* above the fixed backdrop */
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #05010a;
+}

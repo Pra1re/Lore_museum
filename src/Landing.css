@@ -1,0 +1,305 @@
+/* Page 1. Everything here is a function of --p, published by useScrub. */
+
+.landing {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #05010a;
+}
+
+/* ---------------------------------------------------------------- plates */
+
+.layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform-origin: 42% 55%;
+  will-change: transform;
+}
+
+/* Rates diverge deliberately: the far plate barely moves, the near plate
+   travels seven times as far. That ratio is the whole illusion. */
+.layer--bg {
+  transform: translate3d(calc(var(--p, 0) * -4vw), 0, 0)
+             scale(calc(1 + var(--p, 0) * 0.1));
+}
+
+.layer--figure {
+  transform: translate3d(calc(var(--p, 0) * -13vw), 0, 0)
+             scale(calc(1 + var(--p, 0) * 0.22));
+}
+
+.layer--fore {
+  transform: translate3d(calc(var(--p, 0) * -28vw), 0, 0)
+             scale(calc(1 + var(--p, 0) * 0.34));
+  filter: blur(calc(var(--v, 0) * 2.5px));
+}
+
+/* Deepens the scene as the camera pushes in, and keeps the left column
+   readable at rest. */
+.landing__grade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.2) 42%, rgba(0, 0, 0, 0) 100%),
+    radial-gradient(120% 90% at 50% 45%, rgba(0, 0, 0, 0) 40%, rgba(3, 0, 8, 0.75) 100%);
+  opacity: calc(0.75 + var(--p, 0) * 0.25);
+}
+
+/* ----------------------------------------------------------------- runes */
+
+.runes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translate3d(calc(var(--p, 0) * -40vw), 0, 0);
+  opacity: clamp(0, calc(1 - var(--p, 0) * 2.6), 1);
+  filter: blur(calc(var(--v, 0) * 3px));
+  will-change: transform, opacity;
+}
+
+.rune {
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  pointer-events: auto;
+  animation: rune-float 4s ease-in-out infinite alternate;
+  /* each rune drifts its own way as the transition runs */
+  translate: calc(var(--p, 0) * var(--sx) * 9vw) calc(var(--p, 0) * var(--sy) * 6vh);
+}
+
+.rune svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  filter: drop-shadow(0 0 2px rgba(0, 243, 255, 0.3));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.rune:hover svg,
+.rune:focus-visible svg {
+  color: #fff;
+  filter: drop-shadow(0 0 10px var(--neon-blue)) drop-shadow(0 0 20px var(--neon-blue));
+  transform: scale(1.2);
+}
+
+.rune:focus-visible {
+  outline: 1px solid var(--neon-blue);
+  outline-offset: 6px;
+}
+
+.rune:nth-child(1)  { top: 15%; left: 25%; animation-delay: 0s;   width: 30px; height: 30px; }
+.rune:nth-child(2)  { top: 8%;  left: 35%; animation-delay: 1.2s; width: 24px; height: 24px; }
+.rune:nth-child(3)  { top: 12%; left: 65%; animation-delay: 2.5s; width: 34px; height: 34px; }
+.rune:nth-child(4)  { top: 18%; left: 75%; animation-delay: 0.8s; width: 27px; height: 27px; }
+.rune:nth-child(5)  { top: 25%; left: 68%; animation-delay: 3s;   width: 20px; height: 20px; }
+.rune:nth-child(6)  { top: 35%; left: 28%; animation-delay: 1.5s; width: 25px; height: 25px; }
+.rune:nth-child(7)  { top: 5%;  left: 55%; animation-delay: 0.5s; width: 28px; height: 28px; }
+.rune:nth-child(8)  { top: 28%; left: 20%; animation-delay: 2.2s; width: 22px; height: 22px; }
+.rune:nth-child(9)  { top: 8%;  left: 82%; animation-delay: 1.8s; width: 32px; height: 32px; }
+.rune:nth-child(10) { top: 32%; left: 78%; animation-delay: 0.3s; width: 24px; height: 24px; }
+
+@keyframes rune-float {
+  0%   { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-10px) rotate(5deg); }
+}
+
+/* ----------------------------------------------------------------- quote */
+
+.quote-section {
+  position: absolute;
+  top: 75%;
+  left: 6vw;
+  max-width: 370px;
+  z-index: 2;
+  transform: translate3d(calc(var(--p, 0) * -55vw), -50%, 0);
+  opacity: clamp(0, calc(1 - var(--p, 0) * 4), 1);
+  filter: blur(calc(var(--p, 0) * 6px));
+  will-change: transform, opacity;
+}
+
+.quote-text {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.6;
+  letter-spacing: 1.5px;
+  color: #e5d8eb;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 15px rgba(176, 38, 255, 0.3);
+}
+
+/* ------------------------------------------------------------ scroll hint */
+
+.scroll-hint {
+  position: absolute;
+  right: 4vw;
+  bottom: 4vh;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: clamp(0, calc(1 - var(--p, 0) * 6), 1);
+  pointer-events: none;
+}
+
+.scroll-hint__label {
+  font-size: 0.62rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(210, 200, 225, 0.75);
+}
+
+.scroll-hint__rail {
+  position: relative;
+  width: 62px;
+  height: 1px;
+  background: rgba(210, 200, 225, 0.25);
+  overflow: hidden;
+}
+
+.scroll-hint__rail i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 22px;
+  background: var(--neon-blue);
+  box-shadow: 0 0 8px var(--neon-blue);
+  animation: hint-sweep 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes hint-sweep {
+  0%   { transform: translateX(-24px); opacity: 0; }
+  35%  { opacity: 1; }
+  100% { transform: translateX(64px); opacity: 0; }
+}
+
+/* ------------------------------------------------------------ lore scroll */
+
+.scroll-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.scroll-wrapper {
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba(15, 5, 25, 0.85), rgba(5, 2, 10, 0.85)),
+    url('./assets/dark_parchment.jpg');
+  background-size: cover, 350px 180px;
+  background-position: center, right center;
+  border-top: 2px solid rgba(140, 146, 166, 0.4);
+  border-bottom: 2px solid rgba(140, 146, 166, 0.4);
+  box-shadow: 0 0 25px rgba(140, 146, 166, 0.15), inset 0 0 30px rgba(0, 0, 0, 0.9);
+  animation: unroll 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.scroll-wrapper::before,
+.scroll-wrapper::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  width: 20px;
+  z-index: 11;
+  background-image:
+    linear-gradient(rgba(10, 10, 15, 0.6), rgba(5, 5, 10, 0.8)),
+    url('./assets/scroll_roller.jpg');
+  background-size: cover, cover;
+  background-position: center, center;
+  border: 1px solid rgba(40, 40, 50, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.9), inset 0 0 10px rgba(0, 0, 0, 0.9);
+}
+
+.scroll-wrapper::before { left: 0; }
+.scroll-wrapper::after  { right: 0; }
+
+.scroll-content {
+  width: 350px;
+  min-width: 350px;
+  padding: 20px 40px;
+  text-align: center;
+  color: var(--text-primary);
+  opacity: 0;
+  animation: fade-in-content 0.5s ease forwards 0.6s;
+}
+
+.scroll-content h3 {
+  margin-bottom: 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: #c4c6d0;
+}
+
+.scroll-content p {
+  margin-bottom: 15px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #a3a3b5;
+}
+
+.scroll-link {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1px solid #8c92a6;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #c4c6d0;
+  transition: all 0.3s;
+}
+
+.scroll-link:hover {
+  background: #8c92a6;
+  color: #111;
+  box-shadow: 0 0 10px rgba(140, 146, 166, 0.6);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  z-index: 12;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-btn:hover { color: #fff; }
+
+@keyframes unroll {
+  0%   { width: 15px; }
+  100% { width: 350px; }
+}
+
+@keyframes fade-in-content {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rune { animation: none; translate: none; }
+  .scroll-hint__rail i { animation: none; }
+  .layer--fore, .runes { filter: none; }
+}

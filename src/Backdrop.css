@@ -1,0 +1,138 @@
+/*
+ * The continuous environment. Fixed, so it never scrolls and never resets: the
+ * sections scroll over it.
+ *
+ * --g  global progress, unbroken from the stage releasing to the end of the doc
+ * --c  a chapter's centre on that timeline
+ * --d  this chapter's signed distance from centre, the per-chapter camera clock
+ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #05090c;
+  /* one unbroken drift underneath everything else */
+  transform: translate3d(0, calc(var(--g, 0) * -4vh), 0);
+}
+
+.bd {
+  position: absolute;
+  inset: 0;
+
+  /* Squaring a unitless custom property is legal in calc and avoids abs(),
+     which is still uneven across browsers. The window is wide on purpose:
+     neighbouring chapters overlap heavily, so there is never a frame where one
+     ends and the next begins. */
+  --d: calc(var(--g, 0) - var(--c));
+  opacity: clamp(0, calc(1.5 - var(--d) * var(--d) * 9), 1);
+}
+
+.bd__sky,
+.bd__glow,
+.bd__far,
+.bd__near,
+.bd__focal {
+  position: absolute;
+  left: -6%;
+  top: -6%;
+  width: 112%;
+  height: 112%;
+  object-fit: cover;
+}
+
+
+
+/*
+ * Depth comes mostly from the near plate, which is free to travel because
+ * nothing was reconstructed behind it. The focal plate stays close to the far
+ * plate: their differential is a few px at most, which keeps the rebuilt patch
+ * behind Jinx covered.
+ */
+.bd__far {
+  transform: translate3d(0, calc(var(--d, 0) * -8vh), 0) scale(calc(1 + var(--d, 0) * 0.06));
+}
+
+.bd__focal {
+  transform: translate3d(0, calc(var(--d, 0) * -11vh), 0) scale(calc(1 + var(--d, 0) * 0.1));
+}
+
+.bd__near {
+  transform: translate3d(0, calc(var(--d, 0) * -17vh), 0) scale(calc(1 + var(--d, 0) * 0.13));
+}
+
+.bd__glow {
+  transform: translate3d(0, calc(var(--d, 0) * -14vh), 0);
+}
+
+/* ------------------------------------------------------------- chapters */
+
+.bd--dawn .bd__sky {
+  background: linear-gradient(180deg, #fdfdfb 0%, #eef6fd 44%, #d8ebf8 100%);
+}
+
+.bd--dawn .bd__glow {
+  background: radial-gradient(46% 42% at 68% 40%, rgba(196, 232, 255, 0.75), rgba(196, 232, 255, 0) 72%);
+}
+
+.bd--hex .bd__glow {
+  background: radial-gradient(38% 34% at 52% 44%, rgba(150, 220, 255, 0.35), rgba(150, 220, 255, 0) 70%);
+}
+
+.bd--ascend .bd__glow {
+  background: radial-gradient(52% 46% at 62% 38%, rgba(255, 214, 140, 0.32), rgba(255, 214, 140, 0) 72%);
+}
+
+/* ------------------------------------------------ continuous overlays */
+
+.backdrop__motes,
+.backdrop__grain,
+.backdrop__vignette {
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.backdrop__motes {
+  top: -30%;
+  bottom: -30%;
+  opacity: 0.4;
+  transform: translate3d(0, calc(var(--g, 0) * -46vh), 0);
+  background:
+    radial-gradient(2px 2px at 14% 22%, rgba(255, 255, 255, 0.9), transparent 60%),
+    radial-gradient(2px 2px at 38% 48%, rgba(255, 255, 255, 0.7), transparent 60%),
+    radial-gradient(3px 3px at 62% 14%, rgba(255, 255, 255, 0.8), transparent 60%),
+    radial-gradient(2px 2px at 81% 36%, rgba(255, 255, 255, 0.75), transparent 60%),
+    radial-gradient(2px 2px at 27% 72%, rgba(255, 255, 255, 0.6), transparent 60%),
+    radial-gradient(3px 3px at 90% 62%, rgba(255, 255, 255, 0.7), transparent 60%),
+    radial-gradient(2px 2px at 52% 86%, rgba(255, 255, 255, 0.65), transparent 60%);
+}
+
+.backdrop__grain {
+  top: 0;
+  bottom: 0;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.backdrop__vignette {
+  top: 0;
+  bottom: 0;
+  background: radial-gradient(130% 100% at 50% 45%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.42) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .bd__sky,
+  .bd__glow,
+  .bd__far,
+  .bd__near,
+  .bd__focal,
+  .backdrop__motes {
+    transform: none;
+  }
+}

@@ -1,0 +1,200 @@
+/* Page 2, and the wipe that reveals it. All driven by --p / --enter / --jinx. */
+
+.chapter {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+[data-phase='chapter'] .chapter { pointer-events: auto; }
+
+/* ---------------------------------------------------------------- sheets */
+
+.sheet {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  will-change: transform;
+}
+
+/* The curved leading edge. A half ellipse is a big, perfectly smooth arc at
+   any viewport size, and unlike clip-path or mask it costs nothing to move. */
+.sheet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  width: var(--bulge);
+  background: inherit;
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
+}
+
+/* Each sheet parks at 100vw PLUS its own bulge, because the curve hangs off the
+   left of the sheet: parking at plain 100vw leaves the bulge poking into the
+   viewport at rest. Travel distances below are rest position minus that start. */
+
+/* Travels the full viewport and keeps going, so its curve exits stage left and
+   the white is unbroken at rest. Start 130vw (100 + 30 bulge), rest 0. */
+.sheet--white {
+  --bulge: 30vw;
+  background: #fdfdfb;
+  transform: translate3d(calc((1 - var(--p, 0)) * 130vw), 0, 0);
+}
+
+/* A taller-than-viewport ellipse, so the visible slice is the flatter middle of
+   the arc rather than a circular bubble. */
+.sheet--white::before {
+  top: -30%;
+  bottom: -30%;
+}
+
+/* Travels only as far as its resting position, so it always sits on the white
+   sheet rather than racing ahead of it onto the dark scene.
+   Start 112vw (100 + 12 bulge), rest 63vw, so travel is 49vw. */
+.sheet--blue {
+  --bulge: 12vw;
+  background: linear-gradient(180deg, #e4f2ff 0%, #bcdff7 45%, #8fc9ec 100%);
+  transform: translate3d(calc(112vw - var(--p, 0) * 49vw), 0, 0);
+}
+
+/* Vertical gradients only: the ::before shares the sheet's exact top and bottom,
+   so an identical vertical gradient meets it with no seam. */
+.sheet--blue::before {
+  background: linear-gradient(180deg, #e4f2ff 0%, #bcdff7 45%, #8fc9ec 100%);
+}
+
+/* Must not extend left of the sheet. The sheet parks offstage by exactly its own
+   width plus its bulge, so anything reaching further left than 0 spills back
+   into the viewport and washes out the dark scene at rest. */
+.sheet__glow {
+  position: absolute;
+  inset: -10% -10% -10% 0;
+  pointer-events: none;
+  background: radial-gradient(58% 54% at 22% 42%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 70%);
+}
+
+/* Light riding the wipe edge. Peaks mid-transition, gone by the time it lands,
+   which is what sells dark turning to light instead of one sheet covering
+   another. Screen blending means it only shows against the dark scene. */
+.edge-bloom {
+  position: absolute;
+  top: -12%;
+  bottom: -12%;
+  left: 0;
+  width: 46vw;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(38px);
+  background: radial-gradient(closest-side at 72% 50%, rgba(196, 232, 255, 0.9), rgba(120, 190, 240, 0) 100%);
+  transform: translate3d(calc((1 - var(--p, 0)) * 130vw - 56vw), 0, 0);
+  opacity: calc(var(--bloom, 0) * 0.9);
+  will-change: transform, opacity;
+}
+
+/* ------------------------------------------------------------------ jinx */
+
+.jinx {
+  position: absolute;
+  left: 63vw;
+  bottom: 6vh;
+  width: min(32vw, 422px);   /* never past native width, so she stays sharp */
+  height: auto;
+  filter: drop-shadow(-18px 26px 34px rgba(30, 70, 100, 0.42));
+  /* 40vw clears 63vw + her width, so she is fully offstage at rest */
+  transform: translate3d(calc((1 - var(--jinx, 0)) * 40vw), 0, 0);
+  opacity: clamp(0, calc(var(--jinx, 0) * 1.4), 1);
+  will-change: transform, opacity;
+}
+
+/* --------------------------------------------------------------- content */
+
+.chapter__content {
+  position: absolute;
+  top: 50%;
+  left: 8vw;
+  width: min(38vw, 540px);
+  transform: translateY(-50%);
+  color: #14161a;
+}
+
+.chapter__content > * {
+  transform: translate3d(calc((1 - var(--enter, 0)) * (24px + var(--i) * 14px)), 0, 0);
+  opacity: clamp(0, calc(var(--enter, 0) * 1.7 - var(--i) * 0.16), 1);
+}
+
+.chapter__eyebrow {
+  margin-bottom: 18px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #4a7fa0;
+}
+
+.chapter__title {
+  margin-bottom: 26px;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.5px;
+  color: #0d0f13;
+}
+
+.chapter__body {
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: #4b5560;
+}
+
+.chapter__link {
+  display: inline-block;
+  margin-top: 14px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(74, 127, 160, 0.4);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #2c6e8f;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.chapter__link:hover {
+  border-bottom-color: #2c6e8f;
+  color: #14425a;
+}
+
+/* ----------------------------------------------------------- narrow scr. */
+
+@media (max-width: 860px) {
+  .chapter__content {
+    top: 12vh;
+    left: 7vw;
+    width: 86vw;
+    transform: none;
+  }
+
+  .chapter__body:last-of-type { display: none; }
+
+  .jinx {
+    left: auto;
+    right: -4vw;
+    bottom: 0;
+    width: min(58vw, 422px);
+  }
+
+  /* start 112vw, rest 38vw, so travel is 74vw */
+  .sheet--blue { transform: translate3d(calc(112vw - var(--p, 0) * 74vw), 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edge-bloom { display: none; }
+}
