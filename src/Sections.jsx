@@ -1,4 +1,5 @@
 import cast from './assets/cast.webp'
+import { Link } from 'react-router-dom'
 import './Sections.css'
 
 /*
@@ -65,7 +66,7 @@ export default function Sections() {
         <div className="outro__inner">
           <p className="outro__kicker">Ten regions. One archive.</p>
           <h2 className="outro__title">Keep reading</h2>
-          <a className="outro__link" href="/archive">Enter the archive</a>
+          <Link className="outro__link" to="/archive">Enter the archive</Link>
         </div>
       </footer>
     </main>
