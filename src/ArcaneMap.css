@@ -1,0 +1,171 @@
+.arcane-map-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #050508;
+  overflow: hidden;
+}
+
+.arcane-map-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.arcane-map-overlay {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass through to canvas */
+}
+
+.arcane-map-back {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #00ffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  pointer-events: auto; /* Re-enable clicks for the link */
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.arcane-map-back:hover {
+  opacity: 0.8;
+}
+
+.arcane-map-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 15px rgba(176, 38, 255, 0.8);
+}
+
+.arcane-map-subtitle {
+  font-family: 'Inter', sans-serif;
+  color: #b026ff;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 10px;
+}
+
+/* CRT scanline effect */
+.arcane-map-scanline {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0,0,0,0.2) 50%,
+    rgba(0,0,0,0.2)
+  );
+  background-size: 100% 4px;
+  opacity: 0.3;
+}
+
+.region-label {
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.8), 0 0 20px rgba(0, 229, 255, 0.4);
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.region-label__dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: #00e5ff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00e5ff;
+  transition: all 0.3s ease;
+}
+
+.region-label--hovered {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(0, 229, 255, 0.8);
+}
+
+.region-details-modal {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 15px;
+  width: 280px;
+  background: rgba(4, 10, 20, 0.85);
+  border: 1px solid #00e5ff;
+  border-top: 3px solid #00e5ff;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 229, 255, 0.2);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  z-index: 10;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  animation: hologramFadeIn 0.2s ease-out forwards;
+  overflow: hidden;
+}
+
+.region-details__header {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #00e5ff;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+  padding-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.region-details__body {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #c8d2e0;
+  white-space: normal; /* to allow wrapping instead of nowrap from parent HTML container */
+  text-transform: none; /* reset uppercase from parent */
+  letter-spacing: 0; /* reset letter-spacing */
+}
+
+.region-details__scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 229, 255, 0.05) 2px,
+    rgba(0, 229, 255, 0.05) 4px
+  );
+  pointer-events: none;
+}
+
+@keyframes hologramFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}

@@ -61,14 +61,14 @@ const Rune10 = (props) => (
 )
 
 export const RUNES = [
-  { Glyph: Rune1, key: 'demacia', title: 'Demacia', summary: 'A prestigious, proud, lawful kingdom with a prestigious military history.', link: '/demacia' },
-  { Glyph: Rune2, key: 'zaun', title: 'Zaun', summary: 'A polluted undercity where chemtech thrives in the shadows of Piltover.', link: '/zaun' },
-  { Glyph: Rune3, key: 'piltover', title: 'Piltover', summary: 'The city of progress, overlooking Zaun, where hextech powers innovation.', link: '/piltover' },
-  { Glyph: Rune4, key: 'noxus', title: 'Noxus', summary: 'A powerful empire built on conquest, where strength is the only measure of worth.', link: '/noxus' },
-  { Glyph: Rune5, key: 'shurima', title: 'Shurima', summary: 'A fallen empire of the sands, now rising again with ancient Ascended magic.', link: '/shurima' },
-  { Glyph: Rune6, key: 'ionia', title: 'Ionia', summary: 'The First Lands, a peaceful realm of magic, spirits, and harmonious balance.', link: '/ionia' },
-  { Glyph: Rune7, key: 'freljord', title: 'Freljord', summary: 'A harsh and unforgiving land of ice, ancient magic, and warring tribes.', link: '/freljord' },
-  { Glyph: Rune8, key: 'targon', title: 'Mount Targon', summary: 'A towering peak steeped in myth, home to celestial Aspects and starry magic.', link: '/targon' },
-  { Glyph: Rune9, key: 'bilgewater', title: 'Bilgewater', summary: 'A lawless port city of monster hunters, gangs, and endless opportunity.', link: '/bilgewater' },
-  { Glyph: Rune10, key: 'shadow-isles', title: 'Shadow Isles', summary: 'A cursed land shrouded in the Black Mist, where the dead never rest.', link: '/shadow-isles' },
+  { Glyph: Rune1, key: 'home', title: 'Home', summary: 'Return to the front gate of the museum.', link: '/' },
+  { Glyph: Rune2, key: 'archive', title: 'Lore Archive', summary: 'Browse the collected records, dossiers, and classified documents.', link: '/archive' },
+  { Glyph: Rune3, key: 'about', title: 'About', summary: 'The story behind the Lore Museum and its keepers.', link: '/about' },
+  { Glyph: Rune4, key: 'merch', title: 'Merch', summary: 'Artifacts and relics available for acquisition.', link: '/merch' },
+  { Glyph: Rune5, key: 'contact', title: 'Contact Us', summary: 'Send a message through the ether to the archivists.', link: '/contact' },
+  { Glyph: Rune6, key: 'gallery', title: 'Gallery', summary: 'Visual records from across the realms and dimensions.', link: '/gallery' },
+  { Glyph: Rune7, key: 'timeline', title: 'Timeline', summary: 'A chronological record of events across all worlds.', link: '/timeline' },
+  { Glyph: Rune8, key: 'characters', title: 'Characters', summary: 'Dossiers on the heroes, villains, and legends who shaped history.', link: '/characters' },
+  { Glyph: Rune9, key: 'maps', title: 'Maps', summary: 'Cartographic records of every known realm and territory.', link: '/maps' },
+  { Glyph: Rune10, key: 'community', title: 'Community', summary: 'Join fellow lorekeepers and share your discoveries.', link: '/community' },
 ]

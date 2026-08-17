@@ -38,6 +38,19 @@
   filter: blur(calc(var(--v, 0) * 2.5px));
 }
 
+/* Single background image for non-Arcane games */
+.landing__bg-single {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  transition: background-image 0.6s ease;
+  transform: translate3d(calc(var(--p, 0) * -4vw), 0, 0)
+             scale(calc(1 + var(--p, 0) * 0.1));
+  will-change: transform;
+}
+
 /* Deepens the scene as the camera pushes in, and keeps the left column
    readable at rest. */
 .landing__grade {
@@ -97,6 +110,7 @@
   outline-offset: 6px;
 }
 
+/* Original scattered positions for Arcane */
 .rune:nth-child(1)  { top: 15%; left: 25%; animation-delay: 0s;   width: 30px; height: 30px; }
 .rune:nth-child(2)  { top: 8%;  left: 35%; animation-delay: 1.2s; width: 24px; height: 24px; }
 .rune:nth-child(3)  { top: 12%; left: 65%; animation-delay: 2.5s; width: 34px; height: 34px; }
@@ -112,6 +126,44 @@
   0%   { transform: translateY(0) rotate(0deg); }
   100% { transform: translateY(-10px) rotate(5deg); }
 }
+
+/* ---- Arc layout for non-Arcane games ---- */
+.runes--arc {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  top: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3vw;
+  padding-bottom: 6vh;
+  transform: translate3d(calc(var(--p, 0) * -40vw), 0, 0);
+  opacity: clamp(0, calc(1 - var(--p, 0) * 2.6), 1);
+  pointer-events: none;
+}
+
+.rune--arc-item {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  translate: none !important;
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.rune--arc-item:nth-child(1)  { margin-bottom: 10px; }
+.rune--arc-item:nth-child(2)  { margin-bottom: 22px; }
+.rune--arc-item:nth-child(3)  { margin-bottom: 32px; }
+.rune--arc-item:nth-child(4)  { margin-bottom: 38px; }
+.rune--arc-item:nth-child(5)  { margin-bottom: 40px; }
+.rune--arc-item:nth-child(6)  { margin-bottom: 40px; }
+.rune--arc-item:nth-child(7)  { margin-bottom: 38px; }
+.rune--arc-item:nth-child(8)  { margin-bottom: 32px; }
+.rune--arc-item:nth-child(9)  { margin-bottom: 22px; }
+.rune--arc-item:nth-child(10) { margin-bottom: 10px; }
 
 /* ----------------------------------------------------------------- quote */
 
@@ -135,6 +187,67 @@
   letter-spacing: 1.5px;
   color: #e5d8eb;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 15px rgba(176, 38, 255, 0.3);
+}
+
+/* ----------------------------------------------------------------- game hero */
+
+.game-hero {
+  position: absolute;
+  top: 50%;
+  left: 6vw;
+  max-width: 600px;
+  z-index: 2;
+  transform: translate3d(calc(var(--p, 0) * -55vw), -50%, 0);
+  opacity: clamp(0, calc(1 - var(--p, 0) * 4), 1);
+  filter: blur(calc(var(--p, 0) * 6px));
+  will-change: transform, opacity;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.game-hero__title {
+  font-family: 'Cinzel', serif;
+  font-weight: 800;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  letter-spacing: 0.05em;
+  color: #f8f6f2;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.1;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+}
+
+.game-hero__quote {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.game-hero__btn {
+  margin-top: 16px;
+  padding: 14px 32px;
+  color: #111;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  align-self: flex-start;
+  border-radius: 4px;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.game-hero__btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
 }
 
 /* ------------------------------------------------------------ scroll hint */

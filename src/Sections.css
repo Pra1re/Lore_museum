@@ -42,6 +42,48 @@
   transform: translate3d(0, calc(var(--s, 0) * -5vh), 0);
 }
 
+.sec__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Alignment Variations */
+.sec--align-right {
+  justify-content: flex-end;
+}
+.sec--dark.sec--align-right .sec__scrim {
+  background: linear-gradient(-100deg, rgba(4, 8, 12, 0.86) 0%, rgba(4, 8, 12, 0.6) 34%, rgba(4, 8, 12, 0) 66%);
+}
+.sec--light.sec--align-right .sec__scrim {
+  background: linear-gradient(-100deg, rgba(250, 248, 242, 0.9) 0%, rgba(250, 248, 242, 0.64) 34%, rgba(250, 248, 242, 0) 66%);
+}
+.sec--align-right .sec__content {
+  margin-left: 0;
+  margin-right: 9vw;
+}
+
+.sec--align-center {
+  justify-content: center;
+}
+.sec--dark.sec--align-center .sec__scrim {
+  background: radial-gradient(circle at center, rgba(4, 8, 12, 0.86) 0%, rgba(4, 8, 12, 0.5) 40%, rgba(4, 8, 12, 0) 70%);
+}
+.sec--light.sec--align-center .sec__scrim {
+  background: radial-gradient(circle at center, rgba(250, 248, 242, 0.9) 0%, rgba(250, 248, 242, 0.64) 40%, rgba(250, 248, 242, 0) 70%);
+}
+.sec--align-center .sec__content {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* A bell on --s: squaring a unitless custom property is legal in calc and
    avoids abs(), which is still uneven across browsers. */
 .sec__content > * {
@@ -78,13 +120,17 @@
 .sec__link {
   display: inline-block;
   margin-top: 16px;
-  padding-bottom: 4px;
+  padding: 0 0 4px 0;
+  border: none;
   border-bottom: 1px solid currentColor;
+  background: none;
+  font-family: 'Inter', sans-serif;
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 3px;
   text-transform: uppercase;
   text-decoration: none;
+  cursor: pointer;
   opacity: 0.85;
   transition: opacity 0.3s ease;
 }
@@ -193,4 +239,134 @@
   .outro__inner { transform: none; }
 
   .sec__content > * { opacity: 1; transform: none; }
+}
+
+/* Lore Modal Styles */
+.lore-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.lore-modal {
+  width: 90%;
+  max-width: 600px;
+  height: 70vh;
+  background-image: linear-gradient(rgba(15, 5, 25, 0.9), rgba(5, 2, 10, 0.9)), url('./assets/dark_parchment.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(0, 0, 0, 0.8);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.lore-modal-open {
+  animation: book-open 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.lore-modal-close {
+  animation: book-close 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes book-open {
+  0% {
+    transform: rotateY(-90deg) scale(0.8);
+    opacity: 0;
+    width: 2px;
+  }
+  50% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+    width: 2px;
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+    width: 90%;
+  }
+}
+
+@keyframes book-close {
+  0% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+    width: 90%;
+  }
+  50% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+    width: 2px;
+  }
+  100% {
+    transform: rotateY(90deg) scale(0.8);
+    opacity: 0;
+    width: 2px;
+  }
+}
+
+.lore-modal-content {
+  padding: 40px;
+  height: 100%;
+  overflow-y: auto;
+  opacity: 0;
+  animation: modal-content-fade 0.3s ease forwards 0.4s;
+}
+
+.lore-modal-close .lore-modal-content {
+  animation: modal-content-fade-out 0.2s ease forwards;
+}
+
+@keyframes modal-content-fade {
+  to { opacity: 1; }
+}
+
+@keyframes modal-content-fade-out {
+  to { opacity: 0; }
+}
+
+.lore-modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #a3a3b5;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  z-index: 10;
+}
+
+.lore-modal-close-btn:hover {
+  color: #fff;
+}
+
+.lore-modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  color: #e5e0f0;
+  margin-bottom: 24px;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 16px;
+}
+
+.lore-modal-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: #b8b3c4;
+}
+
+.lore-modal-text p {
+  margin-bottom: 18px;
 }

@@ -1,0 +1,225 @@
+.generic-page {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ece8e1;
+}
+
+.generic-page__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(4, 8, 12, 0.5) 0%, rgba(4, 8, 12, 0.95) 100%);
+  z-index: 1;
+}
+
+.generic-page__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 650px;
+  padding: 60px 40px;
+  background: rgba(12, 12, 16, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.generic-page__back {
+  display: inline-block;
+  margin-bottom: 30px;
+  color: var(--accent, #ece8e1);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: opacity 0.3s ease;
+}
+
+.generic-page__back:hover {
+  opacity: 0.7;
+}
+
+.generic-page__title {
+  font-family: 'Cinzel', serif;
+  font-size: 3.5rem;
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.generic-page__summary {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: #b9adb6;
+  margin: 0 0 40px 0;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.generic-page__divider {
+  height: 2px;
+  width: 80px;
+  margin: 0 auto 40px;
+  background-color: var(--accent, #ece8e1);
+  box-shadow: 0 0 10px var(--accent, transparent);
+}
+
+.generic-page__placeholder {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #888;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.page-content {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: #e5d8eb;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.page-content p {
+  margin-bottom: 20px;
+}
+
+/* Contact Form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+.contact-input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  border-radius: 4px;
+  outline: none;
+}
+.contact-input:focus {
+  border-color: var(--accent);
+}
+.contact-submit {
+  background: transparent;
+  border: 2px solid;
+  padding: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.contact-submit:hover {
+  background: var(--accent);
+  color: #000 !important;
+}
+
+/* Merch Grid */
+.merch-grid, .gallery-grid, .characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+.merch-item {
+  text-align: center;
+}
+.merch-placeholder {
+  height: 150px;
+  border: 1px dashed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  opacity: 0.7;
+}
+.merch-item h3 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #fff;
+}
+.merch-item p {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Gallery */
+.gallery-img {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+}
+
+/* Timeline */
+.timeline-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+.timeline-list li {
+  padding-left: 20px;
+  margin-bottom: 25px;
+  position: relative;
+}
+.timeline-list li::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* Characters */
+.character-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.character-card h4 {
+  color: var(--accent);
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.character-card p {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0;
+}
+
+/* Community */
+.community-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+.comm-btn {
+  padding: 12px 24px;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+.comm-btn:hover {
+  opacity: 0.8;
+}

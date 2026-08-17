@@ -15,3 +15,16 @@
   overflow: hidden;
   background: #05010a;
 }
+
+/* Game-specific backdrop for non-Arcane games */
+.backdrop--game {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.35) saturate(1.2);
+  transition: background-image 0.8s ease;
+}
+
